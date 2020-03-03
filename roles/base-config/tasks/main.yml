@@ -5,3 +5,6 @@
     src: internal.repo
     dest: /etc/yum.repos.d/internal.repo
     mode: 0644
+
+- name: update yum cache (returned error without)
+  command: yum clean all && yum makecache
