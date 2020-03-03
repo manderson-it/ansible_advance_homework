@@ -1,17 +1,24 @@
-- hosts: workstation
+---
+- name: OSP - Smoke test three tier app
+  hosts: workstation
   gather_facts: false
   tasks:
-  - name: OpenStack servers
-    os_server_facts:
-     cloud: ospcloud
-     server: 'frontend'
-    register: openstack_info
-    tags:
-      - osp.smoke
-  - name: Curl website
-
-  - name: Fail if 'Ansible has done its job' is not in the page content
-    fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
-    tags:
-      - osp.smoke
+    - name: OpenStack servers
+      os_server_facts:
+        cloud: ospcloud
+        server: 'frontend'
+      register: openstack_info
+      tags:
+        - osp.smoke
+  
+    - name: Curl website
+      uri:
+        url: http://www.example.com
+        return_content: yes
+      register: webpage
+  
+    - name: Fail if 'Ansible has done its job' is not in the page content
+      fail:
+      when: "'Ansible has done its job' not in webpage.results[0].content"
+      tags:
+        - osp.smoke

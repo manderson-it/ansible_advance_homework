@@ -1,5 +1,5 @@
 ---
-# vars file for osp.servers
+# vars file for osp-servers
 osp_servers:
   frontend:
     name: frontend

@@ -1,5 +1,34 @@
 ---
 # tasks file for roles/osp-instance-delete
-  - name: Fetch Instance Info
-  - name: Delete instances
-   
+- name: Fetch Instance Info
+  os_server_info:
+    cloud: ospcloud
+  register: result
+
+- name: Delete instances
+  os_server:
+    cloud: ospcloud
+    state: absent
+    name: "{{ item.value.name }}"
+    image: "{{ item.value.image }}"
+    meta: "{{ item.value.meta }}"
+    flavor: "{{ item.value.flavor }}"
+    security_groups: "{{ item.value.security_group }}"
+    key_name: "{{ item.value.key_name }}"
+    wait: yes
+    nics:
+    - net-name: int_network
+  register: instanceip
+  loop: "{{ osp_servers | dict2items }}"
+
+- name: Delete floating IP
+  os_floating_ip:
+    cloud: ospcloud
+    state: absent
+    reuse: yes
+    server: "{{ item.value.name }}"
+    network: ext_network
+    wait: true
+    timeout: 180
+  register: instancefloatingip
+  loop: "{{ osp_servers | dict2items }}"

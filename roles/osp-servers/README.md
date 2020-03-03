@@ -1,31 +1,81 @@
-Role Name
+osp-servers
 =========
 
-A brief description of the role goes here.
+Provision OSP instances.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* openstacksdk
+* openstacksdk >= 0.12.0
+Direct network connectivity or jumphost into OpenStack environment.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* osp_servers (One or more definitions of an instance)
+Example `vars/main.yml`:
+```yaml
+osp_servers:
+  frontend:
+    name: frontend
+    state: present
+    image: rhel-guest
+    key_name: ansible_ssh
+    flavor: m2.small
+    security_group: frontend
+    meta:
+      - { group: frontends, deployment_name: QA}
+  app1:
+    name: app1
+    state: present
+    image: rhel-guest
+    key_name: ansible_ssh
+    flavor: m2.small
+    security_group: apps
+    meta:
+      - { group: apps, deployment_name: QA}
+  app2:
+    name: app2
+    state: present
+    image: rhel-guest
+    key_name: ansible_ssh
+    flavor: m2.small
+    security_group: apps
+    meta:
+      - { group: apps, deployment_name: QA}
+  db:
+    name: db
+    state: present
+    image: rhel-guest
+    key_name: ansible_ssh
+    flavor: m2.small
+    security_group: db
+    meta:
+      - { group: appdbs, deployment_name: QA}
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Role `osp-setup` has to run first to create required OSP objects like flavor, image, keypair, network, and security group.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+First play is mandatory to create required OSP objects 
+    - name: Create flavor, image, keypair, network, and security groups in OSP 
+      hosts: workstation
+      become: yes
       roles:
-         - { role: username.rolename, x: 42 }
+        - osp-setup
+    
+    - name: Create instances for three-tier-app
+      hosts: workstation
+      become: yes
+      roles:
+        - osp-servers
+
 
 License
 -------
@@ -35,4 +85,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Marek Anderson

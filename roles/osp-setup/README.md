@@ -1,4 +1,4 @@
-Role Name
+osp-setup
 =========
 
 This role creates objects in OSP. The objects created are:
@@ -11,6 +11,8 @@ This role creates objects in OSP. The objects created are:
 Requirements
 ------------
 
+* openstacksdk
+* openstacksdk >= 0.12.0
 Direct network connectivity or jumphost into OpenStack environment.
 
 Role Variables
@@ -19,6 +21,7 @@ Role Variables
 - osp_networks (defines internal and external network for OSP)
 - osp_router (defined the router for the external network for OSP)
 
+Examples `vars/main.yml`:
 ```yaml
 osp_networks:
   # Public Facing Network   
