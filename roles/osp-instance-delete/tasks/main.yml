@@ -5,6 +5,13 @@
     cloud: ospcloud
   register: result
 
+- name: DEBUG - get instance info
+  debug:
+    var: result
+    verbosity: 1
+
+#- meta: end_play
+
 - name: Delete instances
   os_server:
     cloud: ospcloud
