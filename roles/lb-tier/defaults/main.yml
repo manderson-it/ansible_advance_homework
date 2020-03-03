@@ -1,2 +1,4 @@
 ---
 # defaults file for lb-tier
+haproxy_frontend_port: 80
+haproxy_backend_port: 8080

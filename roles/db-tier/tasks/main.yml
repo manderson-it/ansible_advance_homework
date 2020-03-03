@@ -1,2 +1,21 @@
 ---
 # tasks file for db-tier
+- name: install postgres on appdbs
+  yum:
+    name: postgresql-server
+    state: present
+
+# only run the next 2 tasks once!
+- name: check if postgres initdb.log file exists
+  stat:
+    path: /var/lib/pgsql/initdb.log
+  register: p
+
+- name: initialize postgres (if applicable)
+  command: postgresql-setup initdb
+  run_once: true
+  when: p.stat.isdir is not defined
+
+- name: postgres seems to be initialized already
+  debug:
+    msg: "Postgres seems to be initialized. Skipping initialization."

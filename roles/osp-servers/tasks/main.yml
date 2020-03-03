@@ -7,7 +7,7 @@
     state: present
     name: "{{ item.value.name }}"
     image: "{{ item.value.image }}"
-    meta: "{{ item.value.meta }}"
+    meta: "{{ item.value.meta[0] }}"
     flavor: "{{ item.value.flavor }}"
     security_groups: "{{ item.value.security_group }}"
     key_name: "{{ item.value.key_name }}"
@@ -36,16 +36,12 @@
   register: instancefloatingip
   loop: "{{ osp_servers | dict2items }}"
 
-- name: Get info of servers
-  os_server_info:
-    cloud: ospcloud
-  register: result
-
-- name: Wait for server to be SSH reachable
+- name: Wait 600 seconds for port 22 to become open and contain "OpenSSH"
   wait_for:
-    host: "{{ item.public_v4 }}"
     port: 22
+    host: "{{ item.floating_ip.floating_ip_address }}"
     search_regex: OpenSSH
+    delay: 5
     timeout: 600
-  delegate_to: "{{ inventory_hostname }}"
-  loop: "{{ result['ansible_facts']['openstack_servers'] }}"
+  loop: "{{ instancefloatingip.results }}"
+

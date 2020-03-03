@@ -1,2 +1,14 @@
 ---
 # tasks file for lb-tier
+- name: install HAProxy
+  yum:
+    name:
+    - haproxy
+    - httpie
+    state: present
+
+- name: configure haproxy
+  template:
+    src: ./haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart HAproxy

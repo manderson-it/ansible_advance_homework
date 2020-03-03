@@ -1,3 +1,4 @@
+- name: 
 - hosts: localhost
   gather_facts: false
   tasks:
@@ -10,6 +11,7 @@
         [isolated_group_osp:vars]
         controller=tower
       state: present
+
   - name: Run Ansible Tower setup
     shell: /root/ansible-tower-setup-latest/setup.sh
     async: 3600

@@ -1,2 +1,4 @@
 ---
 # defaults file for app-tier
+apache_web_dir: /usr/share/tomcat/webapps/ansible
+tomcat_web_dir: /usr/share/tomcat/webapps/ROOT

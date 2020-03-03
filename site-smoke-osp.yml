@@ -3,17 +3,23 @@
   hosts: workstation
   gather_facts: false
   tasks:
-    - name: OpenStack servers
-      os_server_facts:
+    - name: Get info about OSP frontend instance
+      os_server_info:
         cloud: ospcloud
         server: 'frontend'
       register: openstack_info
       tags:
         - osp.smoke
+
+    - name: DEBUG - openstack_info var
+      debug:
+        var: openstack_info
+        verbosity: 1
   
-    - name: Curl website
+    - name: Query three-tier frontend website to test availability
       uri:
-        url: http://www.example.com
+        url: "http://{{ openstack_info.openstack_servers[0].public_v4 }}/"
+        #url: "http://{{ openstack_info.ansible_facts.openstack_servers[0].public_v4 }}/"
         return_content: yes
       register: webpage
   
