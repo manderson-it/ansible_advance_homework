@@ -1,0 +1,11 @@
+- name: Test communication with OSP by creating an OSP flavor
+  hosts: jumpbox
+  tasks:
+  - name: Test - Create m42.med flavor
+    os_nova_flavor:
+     cloud: ospcloud
+     state: present
+     name: m42.med
+     ram: 1024
+     vcpus: 1
+     disk: 10

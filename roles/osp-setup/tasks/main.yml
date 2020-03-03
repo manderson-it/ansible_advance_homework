@@ -1,5 +1,13 @@
 ---
-# tasks file for roles/osp-lab
+# tasks file for roles/osp-setup 
+- name: Sanity check
+  assert:
+    that:
+      - osp_networks is defined
+      - osp_router is defined
+    fail_msg: "defaults 'osp_networks' and 'osp_router' must be defined"
+    success_msg: "defaults 'osp_networks' and 'osp_router' are defined"  
+
 - include_tasks: create-image.yml
 - include_tasks: create-flavor.yml
 - include_tasks: create-keypair.yml
