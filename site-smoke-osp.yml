@@ -1,7 +1,7 @@
 ---
 - name: OSP - Smoke test three tier app
-  hosts: localhost
-  #hosts: workstation
+  #hosts: localhost
+  hosts: workstation
   gather_facts: false
   tasks:
     - name: Get info about OSP frontend instance
