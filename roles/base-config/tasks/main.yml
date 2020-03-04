@@ -7,4 +7,7 @@
     mode: 0644
 
 - name: update yum cache (returned error without)
-  command: yum clean all && yum makecache
+  command: yum clean all
+
+- name: update yum cache (returned error without)
+  command: yum makecache
