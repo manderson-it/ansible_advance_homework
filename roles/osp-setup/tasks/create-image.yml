@@ -2,7 +2,7 @@
   get_url:
      url: http://www.opentlc.com/download/osp_advanced_networking/rhel-guest-image-7.2-20151102.0.x86_64.qcow2
      #dest: /tmp/rhel.qcow2
-     dest: rhel.qcow2
+     dest: /home/cloud-user/rhel.qcow2
   tags:
       - tested
 
@@ -14,6 +14,6 @@
      disk_format: qcow2
      state: present
      #filename: /tmp/rhel.qcow2
-     filename: rhel.qcow2
+     filename: /home/cloud-user/rhel.qcow2
   tags:
       - tested
