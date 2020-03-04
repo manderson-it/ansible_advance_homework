@@ -1,8 +1,10 @@
 ---
 # tasks file for app-tier
-- name: install apache
+- name: install apache and tomcat
   yum:
-    name: httpd
+    name:
+      - httpd
+      - tomcat
     state: present
 
 - name: create ansible folder inside tomcat folder
@@ -14,11 +16,6 @@
   template:
     src: index.html.j2
     dest: "{{ apache_web_dir }}/index.html"
-
-- name: install tomcat
-  package:
-    name: tomcat
-    state: present
 
 - name: create ansible tomcat directory
   file:
