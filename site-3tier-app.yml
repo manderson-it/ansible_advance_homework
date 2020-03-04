@@ -4,6 +4,18 @@
   roles:
     - osp-facts
 
+# Break out base-config to make it skippable / easy to comment out
+- name: Three-Tier-App - base-config (repos)
+  become: yes
+  hosts: appdbs:apps:frontends
+  gather_facts: false
+  vars:
+    run_base_config: "norun"
+  roles:
+    - role: base-config
+      tags: base-config
+      when: run_base_config == "run"
+
 # Setup database tier
 
 #- name: Three-Tier-App - setup database tier
@@ -16,13 +28,13 @@
 
 # Setup application servers tier
 
-- name: Three-Tier-App - setup app tier
-  hosts: apps
-  become: yes
-  gather_facts: false
-  roles:
-    #- {name: base-config, tags: base-config}
-    - {name: app-tier, tags: [apps, tomcat]}
+#- name: Three-Tier-App - setup app tier
+#  hosts: apps
+#  become: yes
+#  gather_facts: false
+#  roles:
+#    #- {name: base-config, tags: base-config}
+#    - {name: app-tier, tags: [apps, tomcat]}
 
 # Setup front-end load balancer tier
 
@@ -31,5 +43,5 @@
   become: yes
   gather_facts: false
   roles:
-    - {name: base-config, tags: base-config}
+    #- {name: base-config, tags: base-config}
     - {name: lb-tier, tags: [lbs, haproxy]}

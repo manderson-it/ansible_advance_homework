@@ -1,10 +1,11 @@
 ---
 # tasks file for lb-tier
+# httpie does not seem to be in common repos
 - name: install HAProxy
   yum:
     name:
     - haproxy
-    - httpie
+    #- httpie
     state: present
 
 - name: configure haproxy
