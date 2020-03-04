@@ -1,8 +1,11 @@
 ---
-- hosts: workstation
+- name: Provision Prod on AWS
+  hosts: workstation
   become: true
   gather_facts: false
   tasks:
+    - fail:
+    - meta: end_play
     - name: create bin directory
       file:
         path: /root/bin
