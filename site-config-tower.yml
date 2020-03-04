@@ -1,4 +1,6 @@
-- hosts: localhost
+---
+- name: Tower configuration
+  hosts: localhost
   gather_facts: false 
   become: yes 
   roles:

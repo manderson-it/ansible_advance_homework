@@ -1,14 +1,15 @@
 # Playbook to setup workstation and create osp network, router, SG and ssh keypair
 
-- hosts: localhost
+- name: Set up workstation and create osp network, router, SG and ssh keypair - Create inventory
+  hosts: localhost
   tasks:
   - name: Create workstation inventory
     add_host:
        name: "workstation-{{OSP_GUID}}.rhpds.opentlc.com"
        group: workstation
 
-
-- hosts: workstation
+- name: Set up workstation and create osp network, router, SG and ssh keypair - Run setup
+  hosts: workstation
   become: yes
   roles:
     - setup-workstation

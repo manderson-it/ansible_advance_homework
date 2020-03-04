@@ -1,4 +1,6 @@
-- hosts: tag_AnsibleGroup_bastions
+---
+- name: Set up AWS credentials
+  hosts: tag_AnsibleGroup_bastions
   gather_facts: true
   become: true
   tasks:

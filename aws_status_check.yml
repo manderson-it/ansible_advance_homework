@@ -1,4 +1,6 @@
-- hosts: tag_instance_filter_three_tier_app_psrivast_redhat_com
+---
+- name: AWS check instance status
+  hosts: tag_instance_filter_three_tier_app_manderso_redhat_com
   gather_facts: false
   tasks:
   - name: Check the instances status

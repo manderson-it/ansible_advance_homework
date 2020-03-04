@@ -1,3 +1,4 @@
+---
 - name: Delete deployed instances from OSP
   hosts: localhost
   #hosts: workstation

@@ -1,5 +1,5 @@
-- name: 
-- hosts: localhost
+- name: Tower install isolated node
+  hosts: localhost
   gather_facts: false
   tasks:
   - name: Append inventory file

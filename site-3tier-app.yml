@@ -1,3 +1,4 @@
+---
 - name: Gather OSP facts
   hosts: workstation
   gather_facts: true

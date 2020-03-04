@@ -1,31 +1,62 @@
-Role Name
+app-tier
 =========
 
-A brief description of the role goes here.
+This role sets up the apache and tomcat server.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* openstacksdk
+* openstacksdk >= 0.12.0
+Direct network connectivity or jumphost into OpenStack environment.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+This is a play variable for the second play.
+```yaml
+# next line won't run the base-config at all
+run_base_config: "norun"
+# next line will run the base-config on all three tiers
+run_base_config: "run"
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Ensure base-config runs once before a different tier-related play.
 
-    - hosts: servers
+Change *run_base_config* variable in the 2nd play.
+
+    - name: Gather OSP facts
+      hosts: workstation
+      gather_facts: true
       roles:
-         - { role: username.rolename, x: 42 }
+        - osp-facts
+    
+    # Break out base-config to make it skippable / easy to comment out
+    - name: Three-Tier-App - base-config (repos)
+      become: yes
+      hosts: appdbs:apps:frontends
+      gather_facts: false
+      vars:
+        run_base_config: "norun"
+      roles:
+        - role: base-config
+          tags: base-config
+          when: run_base_config == "run"
+    
+    - name: Three-Tier-App - setup app tier
+      hosts: apps
+      become: yes
+      gather_facts: false
+      roles:
+        - {name: app-tier, tags: [apps, tomcat]}
 
 License
 -------
@@ -35,4 +66,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Marek Anderson

@@ -1,3 +1,4 @@
+---
 - name: Test communication with OSP by creating an OSP flavor
   hosts: jumpbox
   tasks:

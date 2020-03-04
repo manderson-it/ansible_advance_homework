@@ -1,3 +1,4 @@
+---
 - name: Create flavor, image, keypair, network, and security groups in OSP 
   hosts: localhost
   #hosts: workstation
