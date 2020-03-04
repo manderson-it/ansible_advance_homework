@@ -1,5 +1,10 @@
 ---
 # defaults file for roles/osp-setup
+
+#Ensure osp_username and osp_user_home are set
+#osp_username: cloud-user
+#osp_user_home: /home/cloud-user
+#
 # Ensure osp_networks: defines an internal and external network as well as
 # an osp_router. See the following example.
 #osp_networks:

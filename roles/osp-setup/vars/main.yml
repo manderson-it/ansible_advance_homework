@@ -1,6 +1,9 @@
 ---
 # vars file for roles/osp-lab
 
+osp_username: cloud-user
+osp_user_home: /home/cloud-user
+
 osp_networks:
   # Public Facing Network   
   external:
