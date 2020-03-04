@@ -1,11 +1,13 @@
 - name: Create flavor, image, keypair, network, and security groups in OSP 
-  hosts: workstation
+  hosts: localhost
+  #hosts: workstation
   become: yes
   roles:
     - osp-setup
 
 - name: Create instances for three-tier-app
-  hosts: workstation
+  hosts: localhost
+  #hosts: workstation
   become: yes
   roles:
     - osp-servers
