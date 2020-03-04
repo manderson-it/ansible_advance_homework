@@ -1,0 +1,25 @@
+- name: Create flavor, image, keypair, network, and security groups in OSP 
+  #hosts: localhost
+  hosts: workstation
+  gather_facts: false
+  #become: no
+  become: yes
+  roles:
+    - osp-facts
+
+- name: Boot instances for three-tier-app
+  #hosts: localhost
+  hosts: instances
+  gather_facts: false
+  #become: no
+  become: yes
+  tasks:
+#    - name: List instances
+#      debug:
+#        var: groups['instances']
+#    - meta: end_play
+    - name: Boot instances
+      os_server_action:
+        action: start
+        server: "{{ inventory_hostname }}"
+      delegate_to: workstation
