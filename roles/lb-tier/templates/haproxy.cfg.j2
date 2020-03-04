@@ -25,5 +25,5 @@ backend app-servers
     mode http
     balance roundrobin
     option forwardfor
-    server 10.10.10.16 10.10.10.16.eae1.internal:8080 cookie 10.10.10.16 check
-    server 10.10.10.14 10.10.10.14.eae1.internal:8080 cookie 10.10.10.14 check
+    server 10.10.10.16 10.10.10.16:8080 cookie 10.10.10.16 check
+    server 10.10.10.14 10.10.10.14:8080 cookie 10.10.10.14 check
