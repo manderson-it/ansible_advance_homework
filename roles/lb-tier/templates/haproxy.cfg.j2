@@ -25,6 +25,5 @@ backend app-servers
     mode http
     balance roundrobin
     option forwardfor
-{% for host in groups['apps'] %}
-    server {{host}} {{host}}.{{GUID}}.internal:{{haproxy_backend_port}} cookie {{host}} check
-{% endfor %}
+    server 10.10.10.16 10.10.10.16.eae1.internal:8080 cookie 10.10.10.16 check
+    server 10.10.10.14 10.10.10.14.eae1.internal:8080 cookie 10.10.10.14 check
