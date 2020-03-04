@@ -4,7 +4,6 @@
   become: true
   gather_facts: false
   tasks:
-    - fail:
     - meta: end_play
     - name: create bin directory
       file:
