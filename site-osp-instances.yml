@@ -11,6 +11,7 @@
   hosts: localhost
   #hosts: workstation
   gather_facts: false
-  become: yes
+  become: no
+  #become: yes
   roles:
     - osp-servers
