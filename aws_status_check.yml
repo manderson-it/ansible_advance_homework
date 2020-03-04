@@ -8,7 +8,7 @@
       host: "{{ item }}"
       port: 22
       search_regex: OpenSSH
-      timeout: 600
+      timeout: 10
     #delegate_to: localhost
     with_items:
       - "{{ inventory_hostname }}"
