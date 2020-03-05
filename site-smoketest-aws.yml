@@ -1,11 +1,12 @@
 ---
 - name: AWS smoke test
   hosts: frontends
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: Query three-tier frontend website to test availability
       uri:
-        url: "http://{{ inventory_hostname }}/"
+        url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/"
+        # url: "http://{{ inventory_hostname }}/"
         return_content: true
       register: webpage
 
