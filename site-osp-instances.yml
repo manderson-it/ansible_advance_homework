@@ -1,18 +1,18 @@
 ---
-- name: Create flavor, image, keypair, network, and security groups in OSP 
+- name: Create flavor, image, keypair, network, and security groups in OSP
   hosts: localhost
-  #hosts: workstation
+  # hosts: workstation
   gather_facts: false
-  become: no
-  #become: yes
+  become: false
+  # become: true
   roles:
     - osp-setup
 
 - name: Create instances for three-tier-app
   hosts: localhost
-  #hosts: workstation
+  # hosts: workstation
   gather_facts: false
-  become: no
-  #become: yes
+  become: false
+  # become: true
   roles:
     - osp-servers

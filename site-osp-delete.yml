@@ -1,9 +1,9 @@
 ---
 - name: Delete deployed instances from OSP
   hosts: localhost
-  #hosts: workstation
+  # hosts: workstation
   become: false
-  #become: true
+  # become: true
   pre_task:
     - meta: end_play
   roles:

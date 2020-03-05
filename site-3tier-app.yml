@@ -7,7 +7,7 @@
 
 # Break out base-config to make it skippable / easy to comment out
 - name: Three-Tier-App - base-config (repos)
-  become: yes
+  become: true
   hosts: appdbs:apps:frontends
   gather_facts: false
   vars:
@@ -19,8 +19,8 @@
 
 # Setup database tier
 
-#- name: Three-Tier-App - setup database tier
-#  become: yes
+# - name: Three-Tier-App - setup database tier
+#  become: true
 #  hosts: appdbs
 #  gather_facts: false
 #  roles:
@@ -29,9 +29,9 @@
 
 # Setup application servers tier
 
-#- name: Three-Tier-App - setup app tier
+# - name: Three-Tier-App - setup app tier
 #  hosts: apps
-#  become: yes
+#  become: true
 #  gather_facts: false
 #  roles:
 #    #- {name: base-config, tags: base-config}
@@ -41,8 +41,8 @@
 
 - name: Three-Tier-App - setup load-balancer tier
   hosts: frontends
-  become: yes
+  become: true
   gather_facts: false
   roles:
-    #- {name: base-config, tags: base-config}
+    # - {name: base-config, tags: base-config}
     - {name: lb-tier, tags: [lbs, haproxy]}

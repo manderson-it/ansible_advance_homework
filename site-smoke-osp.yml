@@ -1,7 +1,7 @@
 ---
 - name: OSP - Smoke test three tier app
   hosts: localhost
-  #hosts: workstation
+  # hosts: workstation
   gather_facts: false
   tasks:
     - name: Get info about OSP frontend instance
@@ -16,22 +16,20 @@
       debug:
         var: openstack_info
         verbosity: 1
-  
+
     - name: Query three-tier frontend website to test availability
       uri:
         url: "http://{{ openstack_info.openstack_servers[0].public_v4 }}/"
-        #url: "http://{{ openstack_info.ansible_facts.openstack_servers[0].public_v4 }}/"
-        return_content: yes
+        return_content: true
       register: webpage
 
     - name: DEBUG - webpage var
       debug:
         var: webpage
         verbosity: 1
-  
+
     - name: Fail if 'Ansible has done its job' is not in the page content
       fail:
       when: "'Ansible has done its job' not in webpage.content"
-      #when: "'Ansible has done its job' not in webpage.results[0].content"
       tags:
         - osp.smoke

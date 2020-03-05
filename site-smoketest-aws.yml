@@ -3,32 +3,17 @@
   hosts: frontends
   gather_facts: false
   tasks:
-#    - name: Get info about OSP frontend instance
-#      os_server_info:
-#        cloud: ospcloud
-#        server: 'frontend'
-#      register: openstack_info
-#      tags:
-#        - osp.smoke
-
-    - name: DEBUG - openstack_info var
-      debug:
-        var: openstack_info
-        verbosity: 1
-  
     - name: Query three-tier frontend website to test availability
       uri:
-        url: "http://{{ openstack_info.openstack_servers[0].public_v4 }}/"
-        #url: "http://{{ openstack_info.ansible_facts.openstack_servers[0].public_v4 }}/"
-        return_content: yes
+        url: "http://{{ inventory_hostname }}/"
+        return_content: true
       register: webpage
 
     - name: DEBUG - webpage var
       debug:
         var: webpage
         verbosity: 1
-  
+
     - name: Fail if 'Ansible has done its job' is not in the page content
       fail:
       when: "'Ansible has done its job' not in webpage.content"
-      #when: "'Ansible has done its job' not in webpage.results[0].content"
