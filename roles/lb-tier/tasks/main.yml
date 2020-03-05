@@ -16,6 +16,10 @@
   when:
     - hostvars[inventory_hostname]['ansible_host'] is undefined
 
+- name: DEBUG for AWS
+  debug: 
+    var: hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
 - name: configure haproxy for AWS
   template:
     src: ./haproxyaws.cfg.j2
