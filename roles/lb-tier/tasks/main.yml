@@ -19,6 +19,7 @@
 - name: DEBUG for AWS
   debug: 
     var: hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+    verbosity: 1
 
 - name: configure haproxy for AWS
   template:
@@ -26,4 +27,5 @@
     dest: /etc/haproxy/haproxy.cfg
   notify: restart HAproxy
   when:
+    - hostvars[inventory_hostname]['ansible_host'] is defined
     - hostvars[inventory_hostname]['ansible_host'] == "18.204.126.255"
