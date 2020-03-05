@@ -1,0 +1,29 @@
+global
+  log /dev/log  local0
+  log /dev/log  local1 notice
+  stats socket /var/lib/haproxy/stats level admin
+  chroot /var/lib/haproxy
+  user haproxy
+  group haproxy
+  daemon
+
+defaults
+  log global
+  mode  http
+  option  httplog
+  option  dontlognull
+        timeout connect 5000
+        timeout client 50000
+        timeout server 50000
+
+frontend hafrontend
+    bind *:{{haproxy_frontend_port}}
+    mode http
+    default_backend app-servers
+
+backend app-servers
+    mode http
+    balance roundrobin
+    option forwardfor
+    server 34.193.51.49 34.193.51.49:8080 cookie 34.193.51.49 check
+    server 3.82.78.23 3.82.78.23:8080 cookie 3.82.78.23 check

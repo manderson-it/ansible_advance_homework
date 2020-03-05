@@ -5,11 +5,21 @@
   yum:
     name:
     - haproxy
-    #- httpie
+    # - httpie
     state: present
 
-- name: configure haproxy
+- name: configure haproxy for OSP
   template:
     src: ./haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
   notify: restart HAproxy
+  when:
+    - not hostvars[inventory_hostname]['ansible_host'] == "18.204.126.255"
+
+- name: configure haproxy for AWS
+  template:
+    src: ./haproxyaws.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart HAproxy
+  when:
+    - hostvars[inventory_hostname]['ansible_host'] == "18.204.126.255"
