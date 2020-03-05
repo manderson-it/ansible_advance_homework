@@ -19,23 +19,23 @@
 
 # Setup database tier
 
-# - name: Three-Tier-App - setup database tier
-#  become: true
-#  hosts: appdbs
-#  gather_facts: false
-#  roles:
+ - name: Three-Tier-App - setup database tier
+  become: true
+  hosts: appdbs
+  gather_facts: false
+  roles:
 #    - {name: base-config, tags: base-config}
-#    - {name: db-tier, tags: [dbs, postgres]}
+    - {name: db-tier, tags: [dbs, postgres]}
 
 # Setup application servers tier
 
-# - name: Three-Tier-App - setup app tier
-#  hosts: apps
-#  become: true
-#  gather_facts: false
-#  roles:
+ - name: Three-Tier-App - setup app tier
+  hosts: apps
+  become: true
+  gather_facts: false
+  roles:
 #    #- {name: base-config, tags: base-config}
-#    - {name: app-tier, tags: [apps, tomcat]}
+    - {name: app-tier, tags: [apps, tomcat]}
 
 # Setup front-end load balancer tier
 
