@@ -14,7 +14,7 @@
     dest: /etc/haproxy/haproxy.cfg
   notify: restart HAproxy
   when:
-    - not hostvars[inventory_hostname]['ansible_host'] == "18.204.126.255"
+    - hostvars[inventory_hostname]['ansible_host'] is undefined
 
 - name: configure haproxy for AWS
   template:
